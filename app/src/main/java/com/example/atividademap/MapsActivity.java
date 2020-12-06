@@ -2,6 +2,7 @@ package com.example.atividademap;
 
 import androidx.fragment.app.FragmentActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.android.volley.Request;
@@ -9,11 +10,13 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 
+import com.google.android.gms.common.util.JsonUtils;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import org.json.JSONArray;
@@ -87,5 +90,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         MySingleton.getInstance(MapsActivity.this).addToRequestQueue(request);
 
         mMap.moveCamera(CameraUpdateFactory.newLatLng(initialPosition));
+
+        mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+            @Override
+            public void onInfoWindowClick(Marker marker) {
+                System.out.println("cliquei em um marker");
+                Intent intent = new Intent(MapsActivity.this, CameraActivity.class);
+                intent.putExtra("local", marker.getTitle());
+                startActivity(intent);
+            }
+        });
     }
 }
