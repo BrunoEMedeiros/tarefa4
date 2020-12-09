@@ -110,7 +110,6 @@ public class CameraActivity extends AppCompatActivity implements SensorEventList
         float z = event.values[2];
 
         if(x > 15.000 || x < -15.000 || y > 15.000 || y < -15.000) {
-            System.out.println("aaaaaaaaaa");
             if(!abriuCamera) {
                 Intent Intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 if (Intent.resolveActivity(getPackageManager()) != null) {
